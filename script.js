@@ -8,28 +8,33 @@ const images = [
   { url: "https://picsum.photos/id/239/200/300" },
 ];
 
-let promise1=new Promise((res,rej)=>{
+let promise1=new Promise((resolve,reject)=>{
 	     setTimeout(()=>{
-			 resolve(`${images.url[0]}`);
+			 resolve(`${images[0].url}`);
 		 },1000)
 });
 
-let promise2=new Promise((res,rej)=>{
+let promise2=new Promise((resolve,reject)=>{
 	     setTimeout(()=>{
-			 resolve(`${images.url[1]}`);
+			 resolve(`${images[1].url}`);
 		 },1000)
 });
 
-let promise3=new Promise((res,rej)=>{
+let promise3=new Promise((resolve,reject)=>{
 	     setTimeout(()=>{
-			 resolve(`${images.url[1]}`);
+			 resolve(`${images[2].url}`);
 		 },1000)
 });
  function fetchImg(){
 	 Promise.all([promise1,promise2,promise3]).then((res)=>{
-	 return document.getElementById("output").innerHTML=`<img src="${res}" alt="img">`
-		 }).catch((e)=>{
-		 console.log("error",e);
-		 })
+	     res.forEach((url)=>{
+	         const img=document.createElement("img");
+	         img.src=url;
+	         output.appendChild(img);
+	     })}).catch((err)=>{
+		   console.log("err") 
+	 })}
+		btn.addEventListener('click',fetchImg) 
+		 
 				   
- }
+ 
